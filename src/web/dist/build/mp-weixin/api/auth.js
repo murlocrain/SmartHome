@@ -1,0 +1,1 @@
+"use strict";const e=require("./index.js");exports.getCurrentUser=()=>e.request({url:"/auth/me",method:"GET"}),exports.login=t=>e.request({url:"/auth/login",method:"POST",data:t}),exports.register=t=>e.request({url:"/auth/register",method:"POST",data:t});

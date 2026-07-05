@@ -1,0 +1,1 @@
+["hour", "minute_of_day", "is_night", "weekday", "is_weekend", "motion_30min_sum", "motion_1h_sum", "activity_index", "no_motion_duration_min", "light_中", "light_亮", "light_暗", "temp_温暖", "temp_热", "humi_干燥", "humi_潮湿", "humi_舒适", "act_中", "act_低", "act_高", "current_scene_其他", "current_scene_室内活动", "current_scene_睡眠", "current_scene_离家"]

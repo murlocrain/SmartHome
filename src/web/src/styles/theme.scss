@@ -1,0 +1,43 @@
+$primary-color: #818cf8;
+$primary-dark: #6366f1;
+$primary-light: #a5b4fc;
+
+$success-color: #22c55e;
+$warning-color: #f59e0b;
+$error-color: #ef4444;
+$info-color: #3b82f6;
+
+$bg-primary: #0f172a;
+$bg-secondary: #1e293b;
+$bg-card: rgba(255, 255, 255, 0.05);
+$bg-card-hover: rgba(255, 255, 255, 0.08);
+
+$text-primary: #f8fafc;
+$text-secondary: #e2e8f0;
+$text-muted: #94a3b8;
+$text-disabled: #64748b;
+
+$border-color: rgba(255, 255, 255, 0.1);
+
+$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-bg: linear-gradient(180deg, $bg-primary 0%, $bg-secondary 100%);
+
+@mixin text-primary {
+  color: $text-primary;
+}
+
+@mixin text-secondary {
+  color: $text-secondary;
+}
+
+@mixin text-muted {
+  color: $text-muted;
+}
+
+@mixin bg-card {
+  background: $bg-card;
+}
+
+@mixin border-card {
+  border: 1rpx solid $border-color;
+}

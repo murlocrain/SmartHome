@@ -1,0 +1,91 @@
+version: '3.8'
+
+# SmartHome 一键部署
+# 前置条件: 安装 Docker Desktop / Docker Engine
+# 启动:   docker compose up -d
+# 停止:   docker compose down
+# 查看日志: docker compose logs -f
+
+services:
+  # ============================================================
+  # MySQL 8.0 — 唯一必需的外部依赖
+  # ============================================================
+  mysql:
+    image: mysql:8.0
+    container_name: smarthome-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-smarthome123}
+      MYSQL_DATABASE: smart_home
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # 首次启动时自动执行建表 SQL
+      - ./python/init_mysql.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - smarthome
+
+  # ============================================================
+  # 后端 — 所有微服务（网管 + 用户 + 设备 + AI + 场景）
+  # ============================================================
+  backend:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    container_name: smarthome-backend
+    working_dir: /app
+    command: python start_services.py
+    ports:
+      - "8010:8010"   # gateway
+      - "8011:8011"   # user
+      - "8012:8012"   # device
+      - "8013:8013"   # agent
+      - "8014:8014"   # scene
+    environment:
+      - DATABASE_TYPE=mysql
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-smarthome123}
+      - MYSQL_DB=smart_home
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./python:/app
+      - ./python/common/ml_models:/app/common/ml_models
+    restart: unless-stopped
+    networks:
+      - smarthome
+
+  # ============================================================
+  # 前端 — Vite dev server（开发模式）
+  # ============================================================
+  frontend:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: smarthome-frontend
+    ports:
+      - "5177:5177"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - smarthome
+
+volumes:
+  mysql_data:
+
+networks:
+  smarthome:
+    driver: bridge

@@ -1,0 +1,52 @@
+// ========== 响应式断点 ==========
+// 移动端 < 768px，平板 768-1023px，桌面端 >= 768px，大屏 >= 1200px，超大屏 >= 1440px
+$bp-mobile: 767px;
+$bp-desktop: 768px;
+$bp-tablet: 768px;
+$bp-tablet-max: 1023px;
+$bp-large: 1200px;
+$bp-xlarge: 1440px;
+
+// ========== 桌面端布局常量 ==========
+$sidebar-width: 220px;
+$sidebar-width-lg: 240px;
+$sidebar-width-xl: 260px;
+$content-max-width: 1200px;
+$content-max-width-lg: 1320px;
+$page-padding-x: 40px;
+$page-padding-x-lg: 60px;
+
+// ========== 桌面端媒体查询混入 ==========
+@mixin desktop {
+  @media (min-width: #{$bp-desktop}) {
+    @content;
+  }
+}
+
+// 大屏桌面（1200px+）
+@mixin desktop-lg {
+  @media (min-width: #{$bp-large}) {
+    @content;
+  }
+}
+
+// 超大屏桌面（1440px+）
+@mixin desktop-xl {
+  @media (min-width: #{$bp-xlarge}) {
+    @content;
+  }
+}
+
+// ========== 移动端媒体查询混入 ==========
+@mixin mobile {
+  @media (max-width: #{$bp-mobile}) {
+    @content;
+  }
+}
+
+// ========== 平板端媒体查询混入 ==========
+@mixin tablet {
+  @media (min-width: #{$bp-tablet}) and (max-width: #{$bp-tablet-max}) {
+    @content;
+  }
+}

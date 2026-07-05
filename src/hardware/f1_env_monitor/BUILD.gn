@@ -1,0 +1,47 @@
+# Copyright (c)  2024 iSoftStone Education Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+
+import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+import("//device/rockchip/rk2206/sdk_liteos/board.gni")
+
+static_library("env_monitor_example") {
+    sources = [
+        "env_monitor_example.c",
+        "src/lcd.c",
+        "src/mq2.c",
+        "src/mpu6050.c",
+        "src/env_sensors.c",
+        "src/env_convert.c",
+        "src/drv_light.c",
+        "src/drv_motor.c",
+        "src/drv_beep.c",
+        "src/adc_key.c",
+        "src/env_monitor_lcd.c",
+        "src/wifi_status.c",
+        "src/env_iot.c",
+        "src/env_event.c",
+        "src/env_control.c",
+        "src/voice_ctrl.c",
+    ]
+
+    include_dirs = [
+        "//utils/native/lite/include",
+        "//device/rockchip/hardware/project/rk2206/src",
+        "//device/rockchip/hardware/lib/hal/inc/",
+        "//device/rockchip/rk2206/adapter/include",
+        "//device/rockchip/rk2206/adapter/include/lz_hardware/",
+        "//device/rockchip/rk2206/sdk_liteos/board/include",
+        "include",
+        "//base/iot_hardware/peripheral/interfaces/kits",
+        "//third_party/cJSON",
+        "//third_party/musl/porting/liteos_m/kernel/include",
+        "//third_party/paho_mqtt/MQTTPacket/src",
+        "//third_party/paho_mqtt/MQTTClient-C/src",
+        "//b7_beep/include",
+    ]
+
+    deps = [
+        "//device/rockchip/hardware:hardware",
+        "//kernel/liteos_m/kal/posix",
+    ]
+}

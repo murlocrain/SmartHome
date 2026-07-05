@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "custom-tab-bar": "../../components/CustomTabBar",
+    "network-guard": "../../components/NetworkGuard"
+  }
+}

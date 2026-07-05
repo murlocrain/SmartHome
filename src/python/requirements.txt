@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pydantic
+pydantic-settings
+sqlalchemy
+pymysql
+python-dotenv
+python-jose
+passlib
+bcrypt
+python-multipart
+requests
+huaweicloudsdkcore
+huaweicloudsdkiotda
+scikit-learn
+numpy
+pandas

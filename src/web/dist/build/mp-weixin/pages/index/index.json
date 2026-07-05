@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "custom-tab-bar": "../../components/CustomTabBar",
+    "network-guard": "../../components/NetworkGuard",
+    "ai-assistant": "../../components/AiAssistant"
+  }
+}
